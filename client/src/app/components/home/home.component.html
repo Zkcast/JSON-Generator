@@ -68,7 +68,7 @@
 <div class="download_div">
     <button [disabled]="!disableDownload()" (click)="postObj()" type="button" class="btn btn-primary m-3">
         <a title="Download JSON" [href]="downloadJsonHeref" download="download.json">
-            Download JSON
+            {{this.quantityToReturn > 1000 ? 'Max of 1000 objects' : 'Download JSON'}}
             <img class="download_icon" src="../../../assets/downloadicon.png">
         </a>
     </button>

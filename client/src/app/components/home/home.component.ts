@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.preview = {} 
+    this.preview = {}
 
     this.info = new FormGroup({
 
@@ -93,11 +93,11 @@ export class HomeComponent implements OnInit {
 
 
   handleQuantity(n: String) {
-    if (Number(n) < 1 || isNaN(Number(n))) { this.quantityInput = 0; return false}
-    if (Number(n) > 1000) {this.quantityInput = 1000; return false}
+    if (Number(n) < 1 || isNaN(Number(n))) { this.quantityInput = 0; return false }
+    if (Number(n) > 1000) { this.quantityInput = 1000; return false }
 
-    if (Number(n) < 1000 && Number(n) > 0) {this.quantityToReturn = Number(n); return true}
-    
+    if (Number(n) < 1000 && Number(n) > 0) { this.quantityToReturn = Number(n); return true }
+
     return false
   }
 
@@ -142,10 +142,10 @@ export class HomeComponent implements OnInit {
 
 
   open(content: any, i: number) {
-    if(this.info.controls[i].value == 'boolean') {this.modal_typeSelected = 'boolean'}
-    else if(this.info.controls[i].value && this.info.controls[i].value.includes('&')) {this.modal_typeSelected = 'number'}
-    else {this.modal_typeSelected = 'array'}
-    
+    if (this.info.controls[i].value == 'boolean') { this.modal_typeSelected = 'boolean' }
+    else if (this.info.controls[i].value && this.info.controls[i].value.includes('&')) { this.modal_typeSelected = 'number' }
+    else { this.modal_typeSelected = 'array' }
+
     if (!this.info.controls[i - 1].value) { alert('please name key before setting a value'); return }
     this.settingValueOf = i
     this.modalService.open(content);
@@ -163,13 +163,13 @@ export class HomeComponent implements OnInit {
 
   handleInputValue(i: number) {
     let value = this.info.controls[i].value
-    if (value && value.length > 3 && value.includes('&')) { let v = value.split(','); return `${v[0]}-${v[2]}`}
+    if (value && value.length > 3 && value.includes('&')) { let v = value.split(','); return `${v[0]}-${v[2]}` }
     if (value === 'boolean') { return 'BOOLEAN' }
     return value ? `[ ${value.split(',').length} items ]` : 'Value'
   }
 
   getValueOfKey(i: number) {
-    this.setForm() 
+    this.setForm()
     return this.info.controls[i - 1].value
 
   }
@@ -182,7 +182,7 @@ export class HomeComponent implements OnInit {
 
     let value = (e.target as HTMLInputElement).name
     this.modal_typeSelected = value
-  } 
+  }
 
 
   handleRangeNumber(i: number, min: string, max: string) {
@@ -228,7 +228,7 @@ export class HomeComponent implements OnInit {
 
   deleteValue(value: string, i: number) {
 
-    if (value === '89358923578327532434') { this.info.patchValue({ [i]: '' });} // Reset form
+    if (value === '89358923578327532434') { this.info.patchValue({ [i]: '' }); } // Reset form
 
     let array = this.info.controls[i].value.split(',')
     let filter = array.filter((e: string) => e !== value)
@@ -257,8 +257,10 @@ export class HomeComponent implements OnInit {
       }
     }
 
-   this.preview = this.generator.generateRandom(1, this.obj)
+    this.preview = this.generator.generateRandom(1, this.obj)
   }
+
+
 
   postObj() {
     this.setForm();
@@ -271,12 +273,19 @@ export class HomeComponent implements OnInit {
     // })
 
 
-    if (this.quantityToReturn > 1000) {alert('1000 objects max.'); return }
-    let result = this.generator.generateRandom(this.quantityToReturn, this.obj)
+    if (this.quantityToReturn > 1000) {
+      alert('1000 objects max.'); return
 
-    var theJSON = JSON.stringify(result);
-    var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
-    this.downloadJsonHeref = uri;
+    } else {
+      let result = this.generator.generateRandom(this.quantityToReturn, this.obj)
+
+      var theJSON = JSON.stringify(result);
+      var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+      this.downloadJsonHeref = uri;
+
+
+    }
+
 
 
   }
@@ -285,6 +294,8 @@ export class HomeComponent implements OnInit {
     const formValue = this.info.value;
     const mapped = Object.values(formValue).map(value => !!value);
     const hasValues = mapped.some(value => value);
+
+    if (!hasValues || this.quantityToReturn > 1000) {return false}
     return hasValues
   }
 
