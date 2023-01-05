@@ -1,0 +1,168 @@
+<div class="body">
+    <div class="principalCont">
+        <div class="inputs_container" style="border-color: red">
+            <h2 class="title">JSON GENERATOR v1</h2>
+            <div class="leftsymbol title">&#x2774;</div>
+            <form [formGroup]="info" *ngIf="info">
+                <div id="inputs_container">
+                    <div class="inputs" *ngFor="let input of inputQuant; index as i; first as isFirst">
+                        <div class={{getPair(i)}}>
+                            <input maxlength="15" *ngIf="i % 2 === 0" name={{i}} placeholder={{getKeyOrValue(i)}}
+                                type="text" class="form-control" aria-label="Small"
+                                aria-describedby="inputGroup-sizing-sm" formControlName={{i}}>
+                            <!-- <input *ngIf="i % 2 !== 0" #inputt (click)="open(content)" (input)="handleInputValue(i)"
+                                name={{i}} placeholder={{getKeyOrValue(i)}} type="text" class="form-control"
+                                aria-label="Small" aria-describedby="inputGroup-sizing-sm" formControlName={{i}}> -->
+
+                            <div> <button *ngIf="i % 2 !== 0" #inputt (click)="open(content, i)"
+                                    (input)="handleInputValue(i)" name={{i}} type="text" class="form-control valueBtn"
+                                    aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">{{handleInputValue(i)}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+            <hr />
+            <div>
+
+                <div>
+                    <span style="color: white; margin-right: 1rem;">How many objects you want?</span>
+                    <input style="max-width: 75px" #quantityInput
+                        [(ngModel)]="quantityToReturn" value={{quantityToReturn}} type='number' min="1" max="500"
+                        (input)="handleQuantity(quantityInput.value) ? quantityInput.value : quantityInput.value ='0'" />
+                </div>
+            </div>
+            <div>
+                <div>
+                    <button (click)="addInput()" type="button" class="btn btn-secondary m-3">Add property</button>
+                    <button (click)="resetAll()" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+            <div class="rightsymbol title">&#x2775;</div>
+        </div>
+
+
+    </div>
+
+    <div style="color: white" class="secondPrincipal">
+        <h5 class="text-center">Preview</h5>
+        <div *ngIf="(preview | json) != '{}'">
+            <div class="pre">
+                <pre style="color: snow">{{this.preview | json}}</pre>
+            </div>
+
+            <div class="footer">
+
+                <div class="text-center">
+                    <button class="testit_button"><code (click)="setForm()"
+                            class="text-center">Get random</code></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="download_div">
+    <button [disabled]="!disableDownload()" (click)="postObj()" type="button" class="btn btn-primary m-3">
+        <a title="Download JSON" [href]="downloadJsonHeref" download="download.json">
+            Download JSON
+            <img class="download_icon" src="../../../assets/downloadicon.png">
+        </a>
+    </button>
+</div>
+
+<div uib-modal-window="modal-window" class="modalcito" window-class="..." size="..." index="0" animate="animate"
+    modal-animation="true">
+
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header text-center">
+            <h4 class="modal-title" id="modal-basic-title">Choose possible values for your key</h4>
+
+            <button #closeButton type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <!-- <div>
+        <h5 class="text-center"><b>Key:</b> </h5>
+    </div> -->
+        <div class="modal-body">
+            <div class="text-center">
+                <h5>Select the data type for your key "<b>{{getValueOfKey(settingValueOf)}}</b>"</h5>
+
+                <button name='array' (click)="handleSelectedType($event, settingValueOf)"
+                    class="{{modal_typeSelected === 'array' ? 'btn btn-info m-1' : 'btn btn-outline-info m-1'}}">Array
+                    of strings</button>
+
+
+                <button name='number' (click)="handleSelectedType($event, settingValueOf)"
+                    class="{{modal_typeSelected === 'number' ? 'btn btn-info m-1' : 'btn btn-outline-info m-1'}}">Number</button>
+
+                <button name='boolean' (click)="submitBoolean(settingValueOf)"
+                    class="{{modal_typeSelected === 'boolean' ? 'btn btn-info m-1' : 'btn btn-outline-info m-1'}}">Boolean</button>
+
+            </div>
+            <hr />
+
+            <div *ngIf="modal_typeSelected === 'number'" class="modal_numberSelected">
+                <div>
+                    <input maxlength="15" (input)="handleInputMaxMin(min.value) ? min.value : min.value = ''" #min
+                        placeholder="Min" type="text" class="form-control number_input" id="inputZip">
+                </div>
+                <div>
+                    <input maxlength="15" (input)="handleInputMaxMin(max.value) ? max.value : max.value = ''" #max
+                        placeholder="Max" type="text" class="form-control number_input" id="inputZip">
+                </div>
+                <div (click)="d('Cross click')">
+                    <button *ngIf="modal_typeSelected === 'number'" type="button" class="btn btn-outline-dark"
+                        (click)="handleRangeNumber(settingValueOf, min.value, max.value)">Save</button>
+                </div>
+                <!-- <div>
+                <button (click)="handleRangeNumber(settingValueOf, min.value, max.value)" class="btn btn-info">SET</button>
+            </div> -->
+
+            </div>
+
+
+            <div *ngIf="modal_typeSelected === 'array'" class="modal_arraySelected">
+                <div class="modal_previsualization">
+                    <div class="text-center">
+                        <b>Possible values:</b>
+                        {{handleInputValue(settingValueOf) === 'Value' ? '[]' : handleInputValue(settingValueOf) }}
+                    </div>
+
+                    <div class="mt-3">
+                        <button (click)="deleteValue(value, settingValueOf)" class="possible_value_p"
+                            *ngFor="let value of getPossibleValues(settingValueOf)">{{value}}</button>
+                    </div>
+                </div>
+
+                <div class="input_and_button">
+                    <div>
+                        <form [formGroup]="modalForm" (submit)="submitValue(settingValueOf, modal_input.value)">
+                            <input #modal_input maxlength="15" formControlName="modalInput"
+                                class='form-control input_modal' placeholder="Add value here..">
+                            <button type='submit' class="input_addbutton btn btn-secondary">ADD</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="modal_typeSelected === 'boolean'">
+
+                <p>Boolean selected: this will set a value of true or false to "{{getValueOfKey(settingValueOf)}}"
+                </p>
+                <p>Just press "Save" to set it.</p>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark"
+                (click)="deleteValue('89358923578327532434', settingValueOf)">Reset</button>
+            <button *ngIf="modal_typeSelected === 'array'" type="button" class="btn btn-outline-dark"
+                (click)="c('Save click')">Save</button>
+            <button *ngIf="modal_typeSelected === 'boolean'" type="button" class="btn btn-outline-dark"
+                (click)="c('Save click')">Save</button>
+        </div>
+    </ng-template>
+</div>

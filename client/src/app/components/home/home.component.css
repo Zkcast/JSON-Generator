@@ -1,0 +1,260 @@
+.body {
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 0rem;
+    display: flex;
+}
+
+.secondPrincipal {
+    min-width: 400px;
+    min-height: 400px;
+    height: fit-content;
+    backdrop-filter: blur(25px);
+    margin-left: 2.5%;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 2rem;
+    border-color: rgba(245, 245, 245, 0.078);
+    border-radius: 0.5rem;
+    border-style:solid;
+    border-width: 1px;
+}
+
+a {
+    all: unset;
+}
+
+.title {
+    color: white;
+}
+
+.principalCont {
+    margin-top: 10vh;
+    min-width: 500px;
+    padding: 1rem;
+
+}
+
+.valueBtn {
+    text-overflow: clip;
+}
+
+.valueBtn:hover {
+    background-color: azure;
+}
+
+
+.inputs_container {
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    backdrop-filter: blur(40px);
+    padding: 2.5rem;
+    border-style: solid;
+    border-width: 1px;
+    margin-left: 20%;
+    margin-right: 30%;
+    border-radius: 0.5rem;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+    border-color: whitesmoke;
+    transition: all 0.5s;
+    animation-name: cambiarColor;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.leftsymbol {
+    font-size: 50px;
+    margin-right: 95%;
+}
+
+.rightsymbol {
+    font-size: 50px;
+    margin-left: 95%;
+
+}
+
+.leftsymbol_modal {
+    font-size: 25px;
+    margin-right: 95%;
+    color: rgb(88, 88, 88)
+}
+
+.rightsymbol_modal {
+    font-size: 25px;
+    margin-left: 95%;
+    color: rgb(88, 88, 88)
+}
+
+.number_input {
+    text-align: center;
+    align-items: center;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+.modal_previsualization {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    min-height: 10vh;
+}
+
+::placeholder {
+    text-align: center;
+}
+
+.modal_numberSelected {
+    display: flex;
+    justify-content: center;
+}
+
+.modal_numberSelected div {
+    display: flex;
+    justify-content: center;
+}
+
+.input_left {
+    margin: 0.3rem;
+    width: 45%;
+    float: left;
+}
+
+.input_right {
+    margin: 0.3rem;
+    width: 45%;
+    float: right;
+}
+
+.inputs {
+    margin: 1rem;
+}
+
+.modal {
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-backdrop {
+    display: none !important;
+}
+
+
+.input_modal {
+    width: 80%;
+    float: left;
+}
+
+
+.input_addbutton {
+    width: 20%;
+    float: right;
+}
+
+.input_and_button {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 1rem;
+    padding-bottom: 2rem;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.possible_value_p {
+    border-radius: 0.2rem;
+    border-style: solid;
+    border-color: grey;
+    background-color: grey;
+    border-width: 1px;
+    padding: 0.2rem;
+    margin: 0.2rem;
+    color: white;
+}
+
+.possible_value_p:hover {
+    background-color: rgba(165, 42, 42, 0.6);
+}
+
+.download_icon {
+    max-width: 2rem;
+}
+
+.footer{
+    cursor: pointer;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    height: 100%;
+    border-radius: 1.5rem;
+    background-color: rgba(245, 245, 245, 0.117);
+}
+
+.footer:hover{
+    background-color: rgba(245, 245, 245, 0.217);
+
+}
+
+.testit_button{
+    background-color: rgba(255, 255, 255, 0);
+    border-color: none;
+    border-width: 0;
+}
+
+.download_div{
+    display: flex;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* @keyframes cambiarColor {
+    0% {
+        border-color: rgba(255, 0, 0, 0.521);
+    }
+
+    25% {
+        border-color: rgba(0, 128, 0, 0.521);
+    }
+
+    50% {
+        border-color: rgba(0, 0, 255, 0.521);
+    }
+
+    75% {
+        border-color: rgba(255, 255, 0, 0.521);
+    }
+
+    100% {
+        border-color: rgba(255, 0, 0, 0.521);
+    }
+} */
+
+@keyframes cambiarColor {
+    0% {
+        border-color: rgba(255, 255, 255, 1);
+    }
+
+    25% {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    50% {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    75% {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    100% {
+        border-color: rgba(255, 255, 255, 1);
+    }
+}
