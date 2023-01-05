@@ -165,7 +165,7 @@ export class HomeComponent implements OnInit {
     let value = this.info.controls[i].value
     if (value && value.length > 3 && value.includes('&')) { let v = value.split(','); return `${v[0]}-${v[2]}`}
     if (value === 'boolean') { return 'BOOLEAN' }
-    return value ? `[ ${value.split(',').length} ]` : 'Value'
+    return value ? `[ ${value.split(',').length} items ]` : 'Value'
   }
 
   getValueOfKey(i: number) {
