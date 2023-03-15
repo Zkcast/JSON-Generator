@@ -140,7 +140,7 @@
                 <div class="input_and_button">
                     <div>
                         <form [formGroup]="modalForm" (submit)="submitValue(settingValueOf, modal_input.value)">
-                            <input #modal_input maxlength="15" formControlName="modalInput"
+                            <input #modal_input maxlength="50" formControlName="modalInput"
                                 class='form-control input_modal' placeholder="Add value here..">
                             <button type='submit' class="input_addbutton btn btn-secondary">ADD</button>
                         </form>
